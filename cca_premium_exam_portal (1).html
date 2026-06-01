@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCA Premium MDCAT Testing Portal - Sir Jawad Ali</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts (Poppins and Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- html2pdf.js for Client-side PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- TailWind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              royal: '#2563EB',
+              cyan: '#06B6D4',
+              accent: '#3B82F6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Clean White Premium Background */
+    body {
+      background-color: #f8fafc;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
+    }
+
+    /* Light Glassmorphism Classes */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Radial Timer Track */
+    .timer-circle {
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    /* Selection Highlighting */
+    ::selection {
+      background-color: rgba(37, 99, 235, 0.2);
+      color: #1e293b;
+    }
+
+    /* Page breaks for PDF print layout */
+    .pdf-page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+  </style>
+</head>
+<body class="text-slate-800 font-sans min-h-screen transition-colors duration-300">
+
+  <!-- ================= BACKGROUND ANIMATED PARTICLES ================= -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute w-96 h-96 rounded-full bg-blue-100 blur-[120px] top-10 left-10 animate-pulse"></div>
+    <div class="absolute w-96 h-96 rounded-full bg-cyan-100 blur-[150px] bottom-10 right-10 animate-pulse" style="animation-delay: 2s;"></div>
+  </div>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <nav class="sticky top-0 z-40 glass-panel border-b border-slate-200 px-4 lg:px-8 py-3 flex items-center justify-between" data-html2pdf-ignore="true">
+    <div class="flex items-center gap-3">
+      <!-- Embedded Vector Premium Logo of CCA -->
+      <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-blue-500/20">
+        C
+      </div>
+      <div>
+        <h1 class="text-lg font-bold font-display tracking-tight text-slate-900">
+          CAPITAL COACHING ACADEMY
+        </h1>
+        <p class="text-xs text-blue-600 font-medium">Mardan Campus • MDCAT Special</p>
+      </div>
+    </div>
+
+    <!-- Right Side Utility Controls -->
+    <div class="flex items-center gap-4">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 text-xs font-semibold">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>SECURE ONLINE PORTAL</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= MAIN CORE CONTAINER ================= -->
+  <main class="relative z-10 max-w-7xl mx-auto px-4 py-6 md:py-10 min-h-[calc(100vh-80px)] flex flex-col justify-center">
+    
+    <!-- 1. LOADING SCREEN -->
+    <div id="loadingScreen" class="flex flex-col items-center justify-center py-20" data-html2pdf-ignore="true">
+      <div class="relative flex items-center justify-center mb-8">
+        <div class="w-24 h-24 rounded-full border-4 border-slate-200 border-t-blue-600 animate-spin"></div>
+        <div class="absolute w-16 h-16 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-2xl shadow-xl">
+          C
+        </div>
+      </div>
+      <h2 class="text-2xl font-bold tracking-wider font-display text-slate-900">INITIALIZING EXAM ENVIRONMENT</h2>
+      <p class="text-slate-500 text-sm mt-2 animate-pulse">Loading CCA High-Yield Question Bank (Sir Jawad Ali)...</p>
+    </div>
+
+    <!-- 2. STUDENT START SCREEN -->
+    <div id="startScreen" class="hidden max-w-2xl mx-auto w-full" data-html2pdf-ignore="true">
+      <div class="glass-panel rounded-3xl p-6 md:p-10 relative overflow-hidden">
+        
+        <!-- Welcome Header -->
+        <div class="text-center mb-8">
+          <div class="mx-auto w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-4xl shadow-lg mb-4">
+            CCA
+          </div>
+          <h2 class="text-3xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
+            MDCAT Biology Diagnostic Test
+          </h2>
+          <p class="text-blue-600 font-semibold text-sm tracking-wide mt-2 uppercase">
+            Chapter 1: Cell Structure and Function (The Nucleus & Organelles)
+          </p>
+          <div class="mt-5 flex flex-wrap justify-center gap-3 text-xs text-slate-600">
+            <span class="px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 font-medium"><i class="fa-solid fa-user-tie text-blue-600 mr-1"></i> Sir Jawad Ali</span>
+            <span class="px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 font-medium"><i class="fa-solid fa-list-check text-blue-600 mr-1"></i> 50 Conceptual MCQs</span>
+            <span class="px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 font-medium"><i class="fa-solid fa-clock text-blue-600 mr-1"></i> 50 Minutes Timer</span>
+          </div>
+        </div>
+
+        <!-- Instructor Quote -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl mb-8">
+          <p class="text-slate-700 text-sm italic font-medium">
+            "Read every question carefully. The MCQs are designed to test your direct understanding of the Nucleus and Cytoplasmic Organelles."
+          </p>
+          <p class="text-right text-xs font-bold text-blue-700 mt-2">— Sir Jawad Ali</p>
+        </div>
+
+        <!-- Student Onboarding Form -->
+        <form id="onboardingForm" onsubmit="handleOnboarding(event)" class="space-y-6">
+          <div>
+            <label for="studentName" class="block text-sm font-semibold text-slate-700 mb-2">Student Full Name <span class="text-red-500">*</span></label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                <i class="fa-solid fa-user"></i>
+              </span>
+              <input type="text" id="studentName" required 
+                class="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder-slate-400 transition-all text-base shadow-sm" 
+                placeholder="Enter your complete legal name">
+            </div>
+          </div>
+
+          <div>
+            <label for="fatherName" class="block text-sm font-semibold text-slate-700 mb-2">Father Name <span class="text-red-500">*</span></label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                <i class="fa-solid fa-user-group"></i>
+              </span>
+              <input type="text" id="fatherName" required 
+                class="w-full pl-10 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder-slate-400 transition-all text-base shadow-sm" 
+                placeholder="Enter father's name">
+            </div>
+          </div>
+
+          <!-- Academic Honor Code -->
+          <div class="flex items-start gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <input type="checkbox" id="honorCheck" required class="mt-1 h-4.5 w-4.5 text-blue-600 focus:ring-blue-500 rounded border-slate-300 bg-white cursor-pointer">
+            <label for="honorCheck" class="text-xs text-slate-600 font-medium leading-relaxed cursor-pointer">
+              I agree to abide by the rules of CCA online evaluation. I will solve this exam honestly without checking notes.
+            </label>
+          </div>
+
+          <!-- Start Action Button -->
+          <button type="submit" class="w-full relative group overflow-hidden bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-4 px-6 rounded-xl font-bold tracking-wide text-base shadow-lg shadow-blue-500/30 hover:shadow-cyan-500/30 hover:-translate-y-0.5 transition-all duration-300">
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              START ONLINE EXAM NOW <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 3. REAL-TIME QUIZ RUNNER INTERFACE -->
+    <div id="quizScreen" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-start w-full" data-html2pdf-ignore="true">
+      
+      <!-- Left 8-Cols: Live Question Desk -->
+      <div class="lg:col-span-8 flex flex-col gap-6">
+        
+        <!-- Interactive Sticky Header of Quiz Info -->
+        <div class="glass-panel rounded-2xl p-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Student Portal</p>
+              <h3 id="runningStudentLabel" class="text-sm font-bold text-slate-900">Loading...</h3>
+            </div>
+          </div>
+          
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-[10px] text-emerald-700 font-bold tracking-wider">PORTAL ACTIVE</span>
+          </div>
+        </div>
+
+        <!-- Major Question Display Terminal -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 relative">
+          
+          <!-- Progress Ribbon -->
+          <div class="flex items-center justify-between mb-6">
+            <span class="text-xs font-bold font-mono text-blue-700 uppercase tracking-widest bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">
+              Question <span id="currentQIndexLabel" class="text-blue-600">0</span> of <span id="totalQsLabel">00</span>
+            </span>
+            <div class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+              <i class="fa-solid fa-circle-check text-emerald-500"></i>
+              <span id="statAnsweredCount" class="font-bold text-slate-800">0</span> Answered
+            </div>
+          </div>
+
+          <!-- Bar Progress Line -->
+          <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-8 border border-slate-200">
+            <div id="quizProgressBar" class="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-300" style="width: 0%"></div>
+          </div>
+
+          <!-- Actual Question Statement -->
+          <div class="mb-8">
+            <div id="questionText" class="text-lg md:text-xl font-bold font-display text-slate-900 leading-relaxed select-none">
+              <!-- Dynamically populated question text -->
+            </div>
+          </div>
+
+          <!-- Interactive Style MCQ Options Grid -->
+          <div id="optionsContainer" class="space-y-3">
+            <!-- Dynamic Insertion of Options cards -->
+          </div>
+        </div>
+
+        <!-- Navigating Panel Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button onclick="navigatePrevious()" id="prevBtn" class="flex-1 sm:flex-none bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-3 rounded-xl font-bold text-sm transition-all flex justify-center items-center gap-2 shadow-sm disabled:opacity-40 disabled:cursor-not-allowed">
+              <i class="fa-solid fa-chevron-left"></i> PREVIOUS
+            </button>
+            <button onclick="navigateNext()" id="nextBtn" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold text-sm transition-all flex justify-center items-center gap-2 shadow-sm shadow-blue-500/20 disabled:opacity-40 disabled:cursor-not-allowed">
+              NEXT <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+            <button onclick="clearCurrentSelection()" class="text-slate-500 hover:text-slate-800 px-3 py-2 text-xs font-bold transition-all underline decoration-slate-300 underline-offset-4">
+              CLEAR SELECTION
+            </button>
+            <button onclick="triggerSubmitConfirmation()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl font-bold text-sm tracking-wide shadow-md shadow-red-500/20 transition-all flex items-center gap-2">
+              <i class="fa-solid fa-flag-checkered"></i> SUBMIT EXAM
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right 4-Cols: Visual Circular Timer and Grid Jumper -->
+      <div class="lg:col-span-4 space-y-6">
+        
+        <!-- Premium Radial Timer Box -->
+        <div class="glass-panel rounded-3xl p-6 text-center">
+          <h4 class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-4">TIME REMAINING</h4>
+          
+          <div class="relative flex items-center justify-center mx-auto mb-4" style="width: 140px; height: 140px;">
+            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+              <!-- Gray Background Track -->
+              <circle cx="60" cy="60" r="50" class="stroke-slate-100" stroke-width="8" fill="transparent"></circle>
+              <!-- Colored Radial Countdown Progress Line -->
+              <circle id="timerProgressCircle" cx="60" cy="60" r="50" class="timer-circle stroke-blue-500" stroke-width="8" fill="transparent"
+                stroke-dasharray="314.15" stroke-dashoffset="0" stroke-linecap="round"></circle>
+            </svg>
+            
+            <div class="absolute flex flex-col items-center justify-center">
+              <span id="countdownTimer" class="text-3xl font-extrabold font-mono text-slate-800 tracking-tight">50:00</span>
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">minutes</span>
+            </div>
+          </div>
+
+          <p class="text-xs font-medium text-slate-500">Exam auto-submits when time ends.</p>
+        </div>
+
+        <!-- Rapid Matrix Navigation Panel -->
+        <div class="glass-panel rounded-3xl p-6">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-widest">Questions Grid</h4>
+            <span class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-md font-bold">50 TOTAL</span>
+          </div>
+
+          <!-- Color Status Legend -->
+          <div class="grid grid-cols-2 gap-3 mb-5 text-[10px] font-bold text-slate-500">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-blue-500"></span> Attempted
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-white border-2 border-slate-300"></span> Unattempted
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full ring-2 ring-blue-400 ring-offset-2 bg-blue-50"></span> Current
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-amber-100 border border-amber-300"></span> Skipped
+            </div>
+          </div>
+
+          <!-- Dynamic Navigator Grid -->
+          <div id="navigatorGrid" class="grid grid-cols-5 gap-2 max-h-64 overflow-y-auto pr-2">
+            <!-- Programmatically injected buttons -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. FINAL SUBMISSION CONFIRMATION DIALOG -->
+    <div id="confirmationModal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4" data-html2pdf-ignore="true">
+      <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
+        <div class="text-center">
+          <div class="mx-auto w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-red-500 text-2xl mb-4 border border-red-100">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <h3 class="text-xl font-bold font-display text-slate-900 mb-2">Ready to Submit Exam?</h3>
+          <p class="text-slate-600 text-sm mb-6 font-medium">
+            You have answered <span id="answeredCountConfirm" class="text-blue-600 font-bold">0</span> out of <span id="totalCountConfirm" class="text-slate-900 font-bold">50</span> questions. You cannot change your answers after submission.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="closeConfirmationModal()" class="flex-1 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl font-bold transition-all">
+              CONTINUE EXAM
+            </button>
+            <button onclick="finalSubmitQuiz()" class="flex-1 py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl font-bold shadow-md shadow-red-500/20 transition-all">
+              SUBMIT EXAM
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. COMPREHENSIVE SCOREBOARD AND REVIEW -->
+    <div id="resultsScreen" class="hidden w-full space-y-8 animate-fade-in">
+      
+      <!-- Official Result Card (Printable Area holds Scorecard AND Detailed Key on separate pages) -->
+      <div id="resultsDocTemplate" class="p-1 md:p-4 rounded-3xl">
+        
+        <!-- ================= PAGE 1: OFFICIAL SCORECARD ================= -->
+        <div class="glass-panel rounded-3xl p-6 md:p-10 relative overflow-hidden bg-white mb-8 border-2 border-slate-200 shadow-xl">
+          <!-- Official Academy Header -->
+          <div class="border-b border-slate-200 pb-6 mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4 text-center md:text-left">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white font-black text-3xl shadow-lg">
+                CCA
+              </div>
+              <div>
+                <h1 class="text-2xl font-extrabold font-display text-slate-900 tracking-tight">CAPITAL COACHING ACADEMY</h1>
+                <p class="text-[11px] text-blue-600 font-bold tracking-widest uppercase mt-0.5">Mardan Campus • Online Testing System</p>
+                <p class="text-xs text-slate-500 font-medium mt-1">Instructor: Sir Jawad Ali</p>
+              </div>
+            </div>
+            <div class="text-center md:text-right">
+              <span class="inline-block px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 text-[10px] font-bold tracking-widest uppercase">
+                OFFICIAL RESULT SHEET
+              </span>
+              <p class="text-slate-500 text-xs mt-2 font-medium">Date: <span id="resultPrintDate" class="text-slate-800 font-bold">--/--/----</span></p>
+            </div>
+          </div>
+
+          <!-- User Information Banner -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-200 mb-8">
+            <div>
+              <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider mb-1">Student Name</span>
+              <span id="resStudentName" class="text-sm font-bold text-slate-900">---</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider mb-1">Father Name</span>
+              <span id="resFatherName" class="text-sm font-bold text-slate-900">---</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider mb-1">Subject / Topic</span>
+              <span class="text-sm font-bold text-blue-600">Biology / The Nucleus & Organelles</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider mb-1">Total MCQs</span>
+              <span class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                50 Questions
+              </span>
+            </div>
+          </div>
+
+          <!-- Primary Scoreboard Analytics -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-6">
+            
+            <!-- Radial Progress Ring in Score Center -->
+            <div class="lg:col-span-4 flex flex-col items-center justify-center bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-full">
+              <h4 class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-4">Overall Percentage</h4>
+              <div class="relative w-36 h-36 flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="52" class="stroke-slate-100" stroke-width="10" fill="none"></circle>
+                  <circle id="resCircleProgress" cx="60" cy="60" r="52" class="stroke-emerald-500 transition-all duration-1000" stroke-width="10" fill="none"
+                    stroke-dasharray="326.7" stroke-dashoffset="326.7" stroke-linecap="round"></circle>
+                </svg>
+                <div class="absolute text-center mt-1">
+                  <span id="resScorePercentage" class="text-3xl font-extrabold text-slate-900 tracking-tight">0%</span>
+                </div>
+              </div>
+              <div class="mt-5 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100">
+                <p id="resGradeTag" class="text-xs font-bold tracking-widest text-blue-700 uppercase">Processing...</p>
+              </div>
+            </div>
+
+            <!-- Numerical KPI Counters -->
+            <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4 h-full">
+              <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+                <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-lg mb-2">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <span id="resCountCorrect" class="text-2xl font-black text-slate-900 leading-none">00</span>
+                <span class="text-[10px] text-slate-500 font-bold uppercase mt-1">Correct</span>
+              </div>
+
+              <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+                <div class="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center text-lg mb-2">
+                  <i class="fa-solid fa-xmark"></i>
+                </div>
+                <span id="resCountIncorrect" class="text-2xl font-black text-slate-900 leading-none">00</span>
+                <span class="text-[10px] text-slate-500 font-bold uppercase mt-1">Incorrect</span>
+              </div>
+
+              <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+                <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center text-lg mb-2">
+                  <i class="fa-solid fa-minus"></i>
+                </div>
+                <span id="resCountUnattempted" class="text-2xl font-black text-slate-900 leading-none">00</span>
+                <span class="text-[10px] text-slate-500 font-bold uppercase mt-1">Skipped</span>
+              </div>
+
+              <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+                <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-lg mb-2">
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="text-2xl font-black text-slate-900 leading-none"><span id="resMarksObtained">0</span><span class="text-sm text-slate-400">/50</span></span>
+                <span class="text-[10px] text-slate-500 font-bold uppercase mt-1">Total Score</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Utility Control Options Block (Filtered out in PDFs automatically) -->
+          <div class="flex flex-wrap gap-3 justify-center md:justify-end pt-6 border-t border-slate-200" data-html2pdf-ignore="true">
+            <button onclick="resetExamState()" class="px-5 py-3 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold text-sm transition-all flex items-center gap-2">
+              <i class="fa-solid fa-rotate-right"></i> RETAKE EXAM
+            </button>
+            <button onclick="downloadOfficialPDFResult()" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm tracking-wide shadow-md shadow-blue-500/20 transition-all flex items-center gap-2">
+              <i class="fa-solid fa-file-pdf"></i> SAVE RESULT AS PDF (WITH ANSWER KEY)
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= PAGE 2 onwards: FULL EXPLANATION KEY AND ATTEMPT DISCUSSION ================= -->
+        <div class="pdf-page-break p-4 md:p-8 bg-white rounded-3xl border-2 border-slate-200 shadow-xl">
+          <div class="border-b border-slate-200 pb-4 mb-6">
+            <h3 class="text-xl font-extrabold font-display text-slate-900">Complete Attempt Key & Discussion Report</h3>
+            <p class="text-sm font-medium text-slate-500">Official answers, candidate choices, and concise concept analyses for every question.</p>
+          </div>
+
+          <!-- Answers Loop Grid (Populates programmatically, visible both on screen and on printed PDF documents!) -->
+          <div id="resultsDetailedReviewContainer" class="space-y-6">
+            <!-- Dyn Review Cards -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // System Question Pool (50 easy, direct questions. Replacement indexes 13, 17, 18, 32, 34, 47, 48, 49 now strictly cover organelle membranes & inclusions based on your text.)
+    const questionBank = [
+      {
+        id: 1,
+        question: "Which cell organelle is known as the 'Brain of the cell' and controls all cellular activities?",
+        options: ["Mitochondria", "Nucleus", "Ribosome", "Golgi Body"],
+        correct: 1,
+        explanation: "The Nucleus is considered the control center, headquarter, or brain of the eukaryotic cell because it stores genetic information and controls activities."
+      },
+      {
+        id: 2,
+        question: "The division of the nucleus during the M-phase of the cell cycle is called:",
+        options: ["Cytokinesis", "Karyokinesis", "Plasmolysis", "Apoptosis"],
+        correct: 1,
+        explanation: "Karyokinesis specifically refers to the division of the nucleus."
+      },
+      {
+        id: 3,
+        question: "What happens to the nuclear envelope during 'Open Mitosis'?",
+        options: [
+          "It completely disassembles and reforms.",
+          "It remains fully intact throughout division.",
+          "It duplicates into four membranes.",
+          "It is expelled from the cell."
+        ],
+        correct: 0,
+        explanation: "In Open Mitosis, the nuclear envelope completely breaks down (disassembles) at the start of mitosis and reforms at the end."
+      },
+      {
+        id: 4,
+        question: "Which of the following organisms typically undergoes 'Closed Mitosis' where the nuclear envelope remains intact?",
+        options: ["Humans", "Flowering plants", "Yeast", "Frogs"],
+        correct: 2,
+        explanation: "Closed mitosis is found in many unicellular eukaryotes like yeast and slime molds."
+      },
+      {
+        id: 5,
+        question: "How does the 'Nucleoid' in prokaryotes differ from the 'Nucleus' in eukaryotes?",
+        options: [
+          "Nucleoid has a double membrane.",
+          "Nucleoid is a naked, non-membrane-bound region.",
+          "Nucleoid contains only RNA.",
+          "Nucleus lacks a membrane."
+        ],
+        correct: 1,
+        explanation: "The nucleoid is exclusively found in prokaryotes and is a naked, non-membrane-bound region containing DNA."
+      },
+      {
+        id: 6,
+        question: "Why is the nucleus located slightly away from the center in mature plant cells?",
+        options: [
+          "Due to the presence of a large central vacuole.",
+          "Because chloroplasts push it away.",
+          "Because plant cells lack a nuclear envelope.",
+          "To be closer to the cell wall."
+        ],
+        correct: 0,
+        explanation: "In plant cells, the large central vacuole takes up most of the space, pushing the nucleus to the periphery."
+      },
+      {
+        id: 7,
+        question: "Which of the following cells is an example of an 'Anucleated' cell (lacks a nucleus at maturity)?",
+        options: ["Neuron", "Mature RBC (Red Blood Cell)", "Hepatocyte", "Osteoclast"],
+        correct: 1,
+        explanation: "Anucleated cells lose their nucleus during maturity. Examples include mature RBCs and mature phloem sieve tubes."
+      },
+      {
+        id: 8,
+        question: "A 'Binucleated' or 'Dikaryotic' cell contains exactly how many nuclei?",
+        options: ["One", "Two", "Three", "Many"],
+        correct: 1,
+        explanation: "Binucleated (dikaryotic) cells contain exactly two nuclei. Examples include Paramecium and some hepatocytes."
+      },
+      {
+        id: 9,
+        question: "Which protist contains a vegetative macronucleus and a reproductive micronucleus?",
+        options: ["Amoeba", "Paramecium", "Plasmodium", "Euglena"],
+        correct: 1,
+        explanation: "Paramecium is a classic example of a binucleated cell with a macronucleus and a micronucleus."
+      },
+      {
+        id: 10,
+        question: "A multinucleated mass formed by the physical fusion of multiple individual cells is called a:",
+        options: ["Coenocyte", "Syncytium", "Prokaryote", "Monocyte"],
+        correct: 1,
+        explanation: "A syncytium is formed by the active cell-to-cell membrane fusion of multiple individual mononucleated cells."
+      },
+      {
+        id: 11,
+        question: "Which of the following is an example of a Syncytium?",
+        options: ["Liquid endosperm of coconut", "Skeletal muscle fibers", "Filamentous fungi", "Drosophila embryo"],
+        correct: 1,
+        explanation: "Skeletal muscle fibers and osteoclasts are classic examples of syncytia formed by cell fusion."
+      },
+      {
+        id: 12,
+        question: "A multinucleated cell formed by repeated nuclear divisions without cytoplasmic division is called a:",
+        options: ["Syncytium", "Coenocyte", "Dikaryon", "Erythrocyte"],
+        correct: 1,
+        explanation: "A coenocyte is formed when karyokinesis occurs repeatedly without cytokinesis (cell splitting)."
+      },
+      {
+        id: 13,
+        // REPLACED WITH ORGANELLE MEMBRANOLOGY
+        question: "Which of the following cytoplasmic organelles is surrounded by a double-membrane system?",
+        options: ["Lysosome", "Chloroplast", "Endoplasmic Reticulum", "Peroxisome"],
+        correct: 1,
+        explanation: "Double-membrane bounded organelles include the Nucleus, Mitochondria, and Chloroplasts. ER, Lysosomes, and Peroxisomes are single-membrane bounded."
+      },
+      {
+        id: 14,
+        question: "What is the typical diameter of a nucleus?",
+        options: ["1 to 2 micrometers", "6 to 10 micrometers", "50 to 100 micrometers", "1 millimeter"],
+        correct: 1,
+        explanation: "The typical size of a nucleus is 6 to 10 micrometers in diameter, occupying about 10 percent of the cell volume."
+      },
+      {
+        id: 15,
+        question: "Which white blood cell is characterized by a multi-lobed nucleus containing 3 to 5 lobes?",
+        options: ["Monocyte", "Eosinophil", "Basophil", "Neutrophil"],
+        correct: 3,
+        explanation: "Neutrophils are polymorphonuclear WBCs with 3 to 5 lobes linked by thin chromatin threads."
+      },
+      {
+        id: 16,
+        question: "Which cell has a bilobed nucleus that looks like spectacles or headphones?",
+        options: ["Eosinophil", "Monocyte", "Adipocyte", "Neutrophil"],
+        correct: 0,
+        explanation: "Eosinophils classically show a bilobed nucleus resembling spectacles or headphones."
+      },
+      {
+        id: 17,
+        // REPLACED WITH ORGANELLE MEMBRANOLOGY
+        question: "Eukaryotic cells contain membrane-less organelles. Which of the following is categorized as a non-membranous organelle?",
+        options: ["Lysosome", "Golgi body", "Ribosome", "Glyoxysome"],
+        correct: 2,
+        explanation: "Non-membranous (membrane-less) organelles include Ribosomes, Centrioles, Cytoskeleton, and the Nucleolus."
+      },
+      {
+        id: 18,
+        // REPLACED WITH ORGANELLE MEMBRANOLOGY
+        question: "Which of the following living structures is bounded by a single membrane?",
+        options: ["Mitochondria", "Nucleolus", "Glyoxysome", "Chloroplast"],
+        correct: 2,
+        explanation: "Glyoxysome is a single-membrane bounded organelle. Mitochondria and Chloroplasts are double-membranous, while the Nucleolus is non-membranous."
+      },
+      {
+        id: 19,
+        question: "Where in the cell are ribosomes primarily synthesized?",
+        options: ["Cytoplasm", "Endoplasmic Reticulum", "Nucleolus", "Golgi body"],
+        correct: 2,
+        explanation: "The nucleolus is the site within the nucleus where rRNA is synthesized and ribosomal subunits are assembled."
+      },
+      {
+        id: 20,
+        question: "The nuclear envelope consists of how many membranes?",
+        options: ["One single membrane", "Two parallel lipid bilayers (Double membrane)", "Three membranes", "No membrane"],
+        correct: 1,
+        explanation: "The nuclear envelope is a double membrane structure consisting of an inner and an outer lipid bilayer."
+      },
+      {
+        id: 21,
+        question: "The outer membrane of the nuclear envelope is continuous with which other cell organelle?",
+        options: ["Golgi apparatus", "Lysosome", "Endoplasmic Reticulum", "Mitochondria"],
+        correct: 2,
+        explanation: "The outer nuclear membrane is directly continuous with the Endoplasmic Reticulum (ER)."
+      },
+      {
+        id: 22,
+        question: "What structures stud the cytosolic surface of the outer nuclear membrane?",
+        options: ["Cilia", "Lysosomes", "Ribosomes", "Centrioles"],
+        correct: 2,
+        explanation: "Because it is continuous with the rough ER, the outer nuclear membrane is studded with ribosomes engaged in protein synthesis."
+      },
+      {
+        id: 23,
+        question: "The fluid-filled space between the inner and outer nuclear membranes is called the:",
+        options: ["Nucleoplasm", "Perinuclear Space", "Cytosol", "Matrix"],
+        correct: 1,
+        explanation: "The Perinuclear Space is the 10 to 50 nm wide fluid-filled gap between the two membranes."
+      },
+      {
+        id: 24,
+        question: "The dense protein network found just beneath the inner nuclear membrane is known as the:",
+        options: ["Nuclear matrix", "Nuclear Lamina", "Cytoskeleton", "Spindle fiber"],
+        correct: 1,
+        explanation: "The Nuclear Lamina is a dense protein network beneath the inner membrane that provides structural support."
+      },
+      {
+        id: 25,
+        question: "The Nuclear Lamina is composed of intermediate filament proteins known as:",
+        options: ["Actin and Myosin", "Tubulins", "Lamins (A, B, C)", "Laminins"],
+        correct: 2,
+        explanation: "Lamins A, B, and C make up the nuclear lamina. (Note: Laminins are extracellular proteins, not nuclear)."
+      },
+      {
+        id: 26,
+        question: "What causes the nuclear envelope to disassemble during Prophase of cell division?",
+        options: [
+          "Phosphorylation of lamins by mitotic kinases.",
+          "Destruction of DNA.",
+          "Swelling of the nucleus.",
+          "Absence of ATP."
+        ],
+        correct: 0,
+        explanation: "Phosphorylation of lamins causes the lamina to break apart, leading to the disassembly of the nuclear envelope."
+      },
+      {
+        id: 27,
+        question: "Which proteins form the nuclear pore channels that regulate transport?",
+        options: ["Lamins", "Nucleoporins", "Histones", "Polymerases"],
+        correct: 1,
+        explanation: "Nuclear pores are composed of proteins called nucleoporins."
+      },
+      {
+        id: 28,
+        question: "The overall diameter of a Nuclear Pore Complex is approximately:",
+        options: ["10 nm", "30 nm", "120 nm", "500 nm"],
+        correct: 2,
+        explanation: "The entire Nuclear Pore Complex has an overall diameter of about 120 nm, with a central opening of 30 nm."
+      },
+      {
+        id: 29,
+        question: "The Nuclear Pore Complex shows what type of rotational symmetry?",
+        options: ["Two-fold", "Four-fold", "Octagonal (8-fold)", "Hexagonal (6-fold)"],
+        correct: 2,
+        explanation: "The structure shows octagonal (8-fold) rotational symmetry."
+      },
+      {
+        id: 30,
+        question: "Small molecules like water and ions pass through the nuclear pores by:",
+        options: ["Active Transport using ATP", "Passive Diffusion", "Phagocytosis", "Endocytosis"],
+        correct: 1,
+        explanation: "Small molecules under 40 kDa pass freely through the pores via passive diffusion."
+      },
+      {
+        id: 31,
+        question: "For active transport into the nucleus, a protein must have a specific amino acid sequence called:",
+        options: ["Nuclear Localisation Signal (NLS)", "Endoplasmic Signal Peptide", "Export Sequence", "Termination codon"],
+        correct: 0,
+        explanation: "Proteins entering the nucleus need a Nuclear Localisation Signal (NLS)."
+      },
+      {
+        id: 32,
+        // REPLACED WITH CYTOPLASMIC STRUCTURE CLASSIFICATION
+        question: "Non-living cytoplasmic structures that are temporary, not present in every cell, and do not contribute to core cell structures are called:",
+        options: ["Organelles", "Inclusions or Paraplasm", "Cytoskeletons", "Lamins"],
+        correct: 1,
+        explanation: "Non-living structures in the cytoplasm are called inclusions or paraplasm. These are temporary and not membrane-bound (e.g., oil drops, glycogen granules, starch granules)."
+      },
+      {
+        id: 33,
+        question: "Which transport proteins carry cargo out of the nucleus to the cytoplasm?",
+        options: ["Importins", "Exportins", "Lamins", "Porins"],
+        correct: 1,
+        explanation: "Exportins carry cargo out of the nucleus, while importins bring cargo in."
+      },
+      {
+        id: 34,
+        // REPLACED WITH CYTOPLASMIC STRUCTURES CLASSIFICATION
+        question: "Which of the following non-living inclusions is commonly stored in animal muscle cells?",
+        options: ["Starch granules", "Glycogen granules", "Oil drops", "Centrioles"],
+        correct: 1,
+        explanation: "Glycogen granules are stored as inclusions in animal muscle cells. Starch granules are stored as inclusions in plant cells."
+      },
+      {
+        id: 35,
+        question: "The transparent, semifluid, colloidal matrix inside the nucleus is called:",
+        options: ["Cytoplasm", "Nucleoplasm", "Stroma", "Matrix"],
+        correct: 1,
+        explanation: "The nucleoplasm (or nuclear sap) is the fluid inside the nucleus where DNA and RNA are suspended."
+      },
+      {
+        id: 36,
+        question: "Which ion is essential in the nucleoplasm for DNA and RNA synthesis to occur?",
+        options: ["Sodium (Na+)", "Potassium (K+)", "Magnesium (Mg2+)", "Calcium (Ca2+)"],
+        correct: 2,
+        explanation: "Magnesium ions (Mg2+) are present in the nucleoplasm and are required for DNA and RNA synthesis."
+      },
+      {
+        id: 37,
+        question: "Which of the following statements about the Nucleolus is TRUE?",
+        options: [
+          "It has a double membrane.",
+          "It has a single membrane.",
+          "It is NOT membrane-bound.",
+          "It is located in the cytoplasm."
+        ],
+        correct: 2,
+        explanation: "The nucleolus is a dense, spherical body that is NOT enclosed by any membrane."
+      },
+      {
+        id: 38,
+        question: "In humans, how many Nucleolar Organiser Regions (NORs) are typically present?",
+        options: ["2 NORs", "5 NORs", "10 NORs", "46 NORs"],
+        correct: 2,
+        explanation: "There are typically 10 NORs in humans, located on specific chromosomes."
+      },
+      {
+        id: 39,
+        question: "What is the primary chemical composition of the Nucleolus?",
+        options: ["85 percent DNA", "85 percent Proteins, 10 percent RNA, 5 percent DNA", "100 percent Lipids", "Equal parts DNA and RNA"],
+        correct: 1,
+        explanation: "The nucleolus is very dense and is composed of about 85 percent proteins, 10 percent RNA, and 5 percent DNA."
+      },
+      {
+        id: 40,
+        question: "During which phase of cell division does the nucleolus completely disassemble and disappear?",
+        options: ["Interphase", "Prophase", "Metaphase", "Telophase"],
+        correct: 1,
+        explanation: "As chromatin condenses in Prophase, transcription stops and the nucleolus disassembles."
+      },
+      {
+        id: 41,
+        question: "In the ultrastructure of the nucleolus, which zone contains inactive rDNA genes?",
+        options: ["Fibrillar Centre (FC)", "Dense Fibrillar Component (DFC)", "Granular Component (GC)", "Nuclear Envelope"],
+        correct: 0,
+        explanation: "The Fibrillar Centre (FC) is the pale-staining central region that acts as a reservoir of inactive rDNA genes."
+      },
+      {
+        id: 42,
+        question: "Which zone of the nucleolus is the site of active rRNA transcription?",
+        options: ["Granular Component (GC)", "Dense Fibrillar Component (DFC)", "Nuclear Basket", "Fibrillar Centre (FC)"],
+        correct: 1,
+        explanation: "The Dense Fibrillar Component (DFC) is the dark region where active transcription of 45S pre-rRNA happens."
+      },
+      {
+        id: 43,
+        question: "Which enzyme is responsible for transcribing the large 45S pre-rRNA precursor inside the nucleolus?",
+        options: ["DNA Polymerase", "RNA Polymerase I", "RNA Polymerase II", "RNA Polymerase III"],
+        correct: 1,
+        explanation: "RNA Polymerase I transcribes the 45S pre-rRNA in the nucleolus."
+      },
+      {
+        id: 44,
+        question: "The 45S pre-rRNA is cut and processed into three mature rRNAs. Which one is NOT one of those three?",
+        options: ["18S rRNA", "28S rRNA", "5.8S rRNA", "5S rRNA"],
+        correct: 3,
+        explanation: "The 45S pre-rRNA is processed into 18S, 5.8S, and 28S rRNAs. The 5S rRNA is produced differently."
+      },
+      {
+        id: 45,
+        question: "The 5S rRNA is unique because it is NOT synthesized in the nucleolus. Where is it transcribed?",
+        options: ["In the cytoplasm", "In the nucleoplasm by RNA Polymerase III", "In the mitochondria", "On the cell membrane"],
+        correct: 1,
+        explanation: "5S rRNA is transcribed outside the nucleolus, in the nucleoplasm, by RNA Polymerase III."
+      },
+      {
+        id: 46,
+        question: "Ribosomal proteins are synthesized in the cytoplasm. How do they enter the nucleolus for assembly?",
+        options: ["They diffuse through the cell membrane.", "They enter through nuclear pores.", "They are made inside the nucleus.", "They do not enter the nucleus."],
+        correct: 1,
+        explanation: "Newly synthesized ribosomal proteins must enter the nucleus through the nuclear pores to reach the nucleolus."
+      },
+      {
+        id: 47,
+        // REPLACED WITH ORGANELLE MEMBRANOLOGY
+        question: "Which of the following organelles is categorized as a single-membrane bounded structure?",
+        options: ["Mitochondria", "Lysosome", "Centriole", "Nucleolus"],
+        correct: 1,
+        explanation: "Lysosomes are surrounded by a single membrane. Mitochondria are double-membranous, while Centrioles and the Nucleolus have no membrane."
+      },
+      {
+        id: 48,
+        // REPLACED WITH ORGANELLE MEMBRANOLOGY
+        question: "Which of the following is a living, non-membranous structure in the cytoplasm that provides structural support?",
+        options: ["Endoplasmic Reticulum", "Golgi body", "Cytoskeleton", "Lysosome"],
+        correct: 2,
+        explanation: "The cytoskeleton is a living, non-membranous structure. ER, Golgi, and Lysosome are all single-membrane bounded organelles."
+      },
+      {
+        id: 49,
+        // REPLACED WITH ORGANELLE MEMBRANOLOGY
+        question: "Which of the following structures is classified as a single-membrane bounded organelle involved in locomotion?",
+        options: ["Cilia", "Centriole", "Cytoskeleton", "Ribosome"],
+        correct: 0,
+        explanation: "Cilia and flagella are categorized as single-membrane bounded organelles. Centrioles, cytoskeleton, and ribosomes are membrane-less."
+      },
+      {
+        id: 50,
+        question: "After assembly in the nucleolus, the 40S and 60S subunits are exported to the cytoplasm. What functional ribosome do they form when they combine?",
+        options: ["60S", "70S", "80S", "100S"],
+        correct: 2,
+        explanation: "In eukaryotes, the 40S and 60S subunits join together in the cytoplasm to form a functional 80S ribosome."
+      }
+    ];
+
+    // Core State Variables
+    let currentQuestionIndex = 0;
+    let studentAnswers = Array(questionBank.length).fill(null);
+    let skippedQuestions = Array(questionBank.length).fill(false);
+    let quizActive = false;
+    let timerInterval = null;
+    let totalTimeSeconds = 50 * 60; // 50 minutes
+    let timeRemainingSeconds = totalTimeSeconds;
+    
+    // User details
+    let currentStudentName = "";
+    let currentFatherName = "";
+
+    // DOM References
+    const loadingScreen = document.getElementById('loadingScreen');
+    const startScreen = document.getElementById('startScreen');
+    const quizScreen = document.getElementById('quizScreen');
+    const resultsScreen = document.getElementById('resultsScreen');
+    const questionText = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const currentQIndexLabel = document.getElementById('currentQIndexLabel');
+    const totalQsLabel = document.getElementById('totalQsLabel');
+    const statAnsweredCount = document.getElementById('statAnsweredCount');
+    const quizProgressBar = document.getElementById('quizProgressBar');
+    const countdownTimer = document.getElementById('countdownTimer');
+    const timerProgressCircle = document.getElementById('timerProgressCircle');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const navigatorGrid = document.getElementById('navigatorGrid');
+    const runningStudentLabel = document.getElementById('runningStudentLabel');
+
+    // Load Simulation
+    window.onload = function() {
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        startScreen.classList.remove('hidden');
+        loadCachedAttempt();
+      }, 1000);
+    };
+
+    // Attempt Recovery
+    function loadCachedAttempt() {
+      const cachedName = localStorage.getItem('cca_student_name');
+      const cachedFather = localStorage.getItem('cca_father_name');
+      const cachedAnswers = localStorage.getItem('cca_answers');
+      const cachedTime = localStorage.getItem('cca_time_remaining');
+
+      if (cachedName && cachedFather) {
+        document.getElementById('studentName').value = cachedName;
+        document.getElementById('fatherName').value = cachedFather;
+        document.getElementById('honorCheck').checked = true;
+      }
+
+      if (cachedAnswers) {
+        try {
+          const parsed = JSON.parse(cachedAnswers);
+          if (parsed.length === questionBank.length) {
+            studentAnswers = parsed;
+          }
+        } catch(e) {}
+      }
+
+      if (cachedTime) {
+        const parsedTime = parseInt(cachedTime, 10);
+        if (!isNaN(parsedTime) && parsedTime > 0) {
+          timeRemainingSeconds = parsedTime;
+        }
+      }
+    }
+
+    // Handle student Onboarding
+    function handleOnboarding(e) {
+      e.preventDefault();
+      const nameVal = document.getElementById('studentName').value.trim();
+      const fatherVal = document.getElementById('fatherName').value.trim();
+      const honorChecked = document.getElementById('honorCheck').checked;
+
+      if (!nameVal || !fatherVal) {
+        alert("Please provide both Student Name and Father's Name!");
+        return;
+      }
+      if (!honorChecked) {
+        alert("You must agree to the evaluation rules.");
+        return;
+      }
+
+      currentStudentName = nameVal;
+      currentFatherName = fatherVal;
+
+      localStorage.setItem('cca_student_name', currentStudentName);
+      localStorage.setItem('cca_father_name', currentFatherName);
+
+      startScreen.classList.add('hidden');
+      quizScreen.classList.remove('hidden');
+      initializeQuiz();
+    }
+
+    function initializeQuiz() {
+      quizActive = true;
+      currentQuestionIndex = 0;
+      runningStudentLabel.textContent = `${currentStudentName.toUpperCase()} s/o ${currentFatherName.toUpperCase()}`;
+      totalQsLabel.textContent = questionBank.length;
+
+      renderQuestion();
+      buildNavigatorGrid();
+      startTimer();
+    }
+
+    function renderQuestion() {
+      const q = questionBank[currentQuestionIndex];
+      questionText.innerHTML = `<span class="text-blue-600 mr-2">Q${q.id}.</span>${q.question}`;
+      currentQIndexLabel.textContent = currentQuestionIndex + 1;
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const optionLetter = String.fromCharCode(65 + idx);
+        const isSelected = studentAnswers[currentQuestionIndex] === idx;
+
+        const optionCard = document.createElement('div');
+        optionCard.className = `group flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer select-none transition-all duration-200 ${
+          isSelected 
+            ? 'bg-blue-50 border-blue-500 shadow-sm' 
+            : 'bg-white border-slate-200 hover:border-blue-300 hover:bg-slate-50'
+        }`;
+        
+        optionCard.onclick = () => selectOption(idx);
+
+        optionCard.innerHTML = `
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-200 ${
+            isSelected ? 'bg-blue-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 group-hover:bg-blue-100 group-hover:text-blue-700'
+          }">
+            ${optionLetter}
+          </div>
+          <div class="flex-1 text-slate-700 font-semibold text-sm md:text-base">
+            ${opt}
+          </div>
+          <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+            isSelected ? 'border-blue-500 bg-blue-500 text-white' : 'border-slate-300 bg-white group-hover:border-blue-400'
+          }">
+            ${isSelected ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''}
+          </div>
+        `;
+        optionsContainer.appendChild(optionCard);
+      });
+
+      prevBtn.disabled = currentQuestionIndex === 0;
+      nextBtn.disabled = currentQuestionIndex === questionBank.length - 1;
+
+      updateAttemptCounters();
+      updateProgressBar();
+      highlightNavigatorGrid();
+      saveStateToLocalStorage();
+    }
+
+    function selectOption(optionIndex) {
+      studentAnswers[currentQuestionIndex] = optionIndex;
+      skippedQuestions[currentQuestionIndex] = false;
+      renderQuestion();
+      buildNavigatorGrid();
+    }
+
+    function clearCurrentSelection() {
+      studentAnswers[currentQuestionIndex] = null;
+      renderQuestion();
+      buildNavigatorGrid();
+    }
+
+    // Direct movement controls
+    function navigatePrevious() {
+      if (currentQuestionIndex > 0) {
+        if (studentAnswers[currentQuestionIndex] === null) skippedQuestions[currentQuestionIndex] = true;
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    }
+
+    function navigateNext() {
+      if (currentQuestionIndex < questionBank.length - 1) {
+        if (studentAnswers[currentQuestionIndex] === null) skippedQuestions[currentQuestionIndex] = true;
+        currentQuestionIndex++;
+        renderQuestion();
+      }
+    }
+
+    function jumpToQuestion(index) {
+      if (studentAnswers[currentQuestionIndex] === null && index !== currentQuestionIndex) {
+        skippedQuestions[currentQuestionIndex] = true;
+      }
+      currentQuestionIndex = index;
+      renderQuestion();
+    }
+
+    function updateAttemptCounters() {
+      statAnsweredCount.textContent = studentAnswers.filter(ans => ans !== null).length;
+    }
+
+    function updateProgressBar() {
+      const percentage = (studentAnswers.filter(ans => ans !== null).length / questionBank.length) * 100;
+      quizProgressBar.style.width = `${percentage}%`;
+    }
+
+    function buildNavigatorGrid() {
+      navigatorGrid.innerHTML = '';
+      questionBank.forEach((q, idx) => {
+        const isCurrent = idx === currentQuestionIndex;
+        const isAnswered = studentAnswers[idx] !== null;
+        const isSkipped = skippedQuestions[idx];
+
+        let bgClass = 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50';
+        if (isAnswered) bgClass = 'bg-blue-600 text-white border-blue-500 shadow-sm';
+        else if (isSkipped) bgClass = 'bg-amber-50 text-amber-600 border-amber-300';
+        
+        if (isCurrent) bgClass += ' ring-2 ring-blue-400 ring-offset-2 font-bold';
+
+        const btn = document.createElement('button');
+        btn.className = `w-10 h-10 rounded-lg text-xs font-bold border-2 flex items-center justify-center transition-all ${bgClass}`;
+        btn.textContent = idx + 1;
+        btn.onclick = () => jumpToQuestion(idx);
+        navigatorGrid.appendChild(btn);
+      });
+    }
+
+    function highlightNavigatorGrid() {
+      const children = navigatorGrid.children;
+      if (children.length === questionBank.length) {
+        for (let idx = 0; idx < questionBank.length; idx++) {
+          if (idx === currentQuestionIndex) {
+            children[idx].classList.add('ring-2', 'ring-blue-400', 'ring-offset-2');
+          } else {
+            children[idx].classList.remove('ring-2', 'ring-blue-400', 'ring-offset-2');
+          }
+        }
+      }
+    }
+
+    function saveStateToLocalStorage() {
+      localStorage.setItem('cca_answers', JSON.stringify(studentAnswers));
+      localStorage.setItem('cca_time_remaining', timeRemainingSeconds.toString());
+    }
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (timeRemainingSeconds <= 0) {
+          clearInterval(timerInterval);
+          autoSubmitOnTimeout();
+        } else {
+          timeRemainingSeconds--;
+          updateTimerDisplay();
+          if (timeRemainingSeconds % 5 === 0) {
+            localStorage.setItem('cca_time_remaining', timeRemainingSeconds.toString());
+          }
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timeRemainingSeconds / 60);
+      const secs = timeRemainingSeconds % 60;
+      countdownTimer.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+      const fraction = timeRemainingSeconds / totalTimeSeconds;
+      timerProgressCircle.setAttribute('stroke-dashoffset', 314.15 * (1 - fraction));
+
+      if (timeRemainingSeconds < 300) {
+        timerProgressCircle.classList.remove('stroke-blue-500');
+        timerProgressCircle.classList.add('stroke-red-500');
+        countdownTimer.classList.add('text-red-600');
+      }
+    }
+
+    function triggerSubmitConfirmation() {
+      document.getElementById('answeredCountConfirm').textContent = studentAnswers.filter(ans => ans !== null).length;
+      document.getElementById('totalCountConfirm').textContent = questionBank.length;
+      document.getElementById('confirmationModal').classList.remove('hidden');
+    }
+
+    function closeConfirmationModal() {
+      document.getElementById('confirmationModal').classList.add('hidden');
+    }
+
+    function autoSubmitOnTimeout() {
+      quizActive = false;
+      alert("Time is up! Your exam is being submitted.");
+      finalSubmitQuiz();
+    }
+
+    function finalSubmitQuiz() {
+      quizActive = false;
+      if (timerInterval) clearInterval(timerInterval);
+      closeConfirmationModal();
+      quizScreen.classList.add('hidden');
+      loadingScreen.classList.remove('hidden');
+      document.querySelector('#loadingScreen h2').textContent = "CALCULATING RESULTS";
+      
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        resultsScreen.classList.remove('hidden');
+        processScoreAndRenderResults();
+        
+        const correct = studentAnswers.filter((ans, idx) => ans === questionBank[idx].correct).length;
+        if ((correct / questionBank.length) * 100 >= 80) triggerSuccessConfetti();
+      }, 1500);
+    }
+
+    function processScoreAndRenderResults() {
+      const total = questionBank.length;
+      let correct = 0, incorrect = 0, unattempted = 0;
+
+      studentAnswers.forEach((ans, idx) => {
+        if (ans === null) unattempted++;
+        else if (ans === questionBank[idx].correct) correct++;
+        else incorrect++;
+      });
+      
+      const percentage = Math.round((correct / total) * 100);
+
+      document.getElementById('resStudentName').textContent = currentStudentName.toUpperCase();
+      document.getElementById('resFatherName').textContent = currentFatherName.toUpperCase();
+      document.getElementById('resultPrintDate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      document.getElementById('resCountCorrect').textContent = correct.toString().padStart(2, '0');
+      document.getElementById('resCountIncorrect').textContent = incorrect.toString().padStart(2, '0');
+      document.getElementById('resCountUnattempted').textContent = unattempted.toString().padStart(2, '0');
+      document.getElementById('resMarksObtained').textContent = correct;
+      document.getElementById('resScorePercentage').textContent = `${percentage}%`;
+
+      document.getElementById('resCircleProgress').setAttribute('stroke-dashoffset', 326.7 * (1 - (percentage / 100)));
+
+      let rankText = "BEGINNER";
+      if (percentage >= 90) rankText = "EXCELLENT PERFORMER";
+      else if (percentage >= 75) rankText = "VERY GOOD";
+      else if (percentage >= 50) rankText = "SATISFACTORY";
+      
+      document.getElementById('resGradeTag').textContent = rankText;
+
+      renderDetailedReview();
+      localStorage.removeItem('cca_answers');
+      localStorage.removeItem('cca_time_remaining');
+    }
+
+    function renderDetailedReview() {
+      const container = document.getElementById('resultsDetailedReviewContainer');
+      container.innerHTML = '';
+
+      questionBank.forEach((q, idx) => {
+        const userSelection = studentAnswers[idx];
+        const isCorrect = userSelection === q.correct;
+        const correctLetter = String.fromCharCode(65 + q.correct);
+        const userLetter = userSelection !== null ? String.fromCharCode(65 + userSelection) : "NONE";
+
+        const card = document.createElement('div');
+        card.className = `bg-white rounded-2xl p-5 border-2 transition-all ${
+          isCorrect ? 'border-emerald-200' : 'border-red-200'
+        }`;
+
+        let optionsListHtml = '';
+        q.options.forEach((opt, optIdx) => {
+          const letter = String.fromCharCode(65 + optIdx);
+          let stateStyle = 'bg-slate-50 border-slate-200 text-slate-600';
+          
+          if (optIdx === q.correct) {
+            stateStyle = 'bg-emerald-50 border-emerald-300 text-emerald-800 font-bold';
+          } else if (userSelection === optIdx && !isCorrect) {
+            stateStyle = 'bg-red-50 border-red-300 text-red-800 font-bold';
+          }
+
+          optionsListHtml += `
+            <div class="flex items-center gap-3 p-3 rounded-xl border-2 text-sm ${stateStyle}">
+              <span class="w-6 h-6 rounded-md flex items-center justify-center bg-white border border-current text-xs shrink-0">${letter}</span>
+              <span class="flex-1">${opt}</span>
+              ${optIdx === q.correct ? '<span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-bold uppercase shrink-0"><i class="fa-solid fa-check mr-1"></i>Correct</span>' : ''}
+              ${userSelection === optIdx && !isCorrect ? '<span class="text-[10px] bg-red-100 text-red-700 px-2 py-1 rounded font-bold uppercase shrink-0"><i class="fa-solid fa-xmark mr-1"></i>Your Answer</span>' : ''}
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm ${
+                isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
+              }">#${q.id}</span>
+              <span class="text-xs font-bold tracking-widest uppercase ${isCorrect ? 'text-emerald-600' : 'text-red-600'}">
+                ${isCorrect ? 'CORRECT' : 'INCORRECT'}
+              </span>
+            </div>
+            <div class="text-xs text-slate-500 font-medium">
+              Candidate Selection: <span class="font-bold ${isCorrect ? 'text-emerald-600' : 'text-red-600'}">${userLetter}</span> 
+              • Correct Option: <span class="text-emerald-600 font-bold">${correctLetter}</span>
+            </div>
+          </div>
+
+          <p class="text-base font-bold text-slate-900 mb-4">${q.question}</p>
+          <div class="space-y-2 mb-4">${optionsListHtml}</div>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl">
+            <h5 class="text-[10px] font-bold text-blue-700 uppercase tracking-widest mb-1">Teacher's Note:</h5>
+            <p class="text-sm text-slate-700 font-medium">${q.explanation}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function triggerSuccessConfetti() {
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#2563EB', '#06B6D4', '#10B981'] });
+        confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#2563EB', '#06B6D4', '#10B981'] });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      }());
+    }
+
+    function downloadOfficialPDFResult() {
+      const element = document.getElementById('resultsDocTemplate');
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `CCA_MDCAT_Result_${currentStudentName.replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    function resetExamState() {
+      studentAnswers = Array(questionBank.length).fill(null);
+      skippedQuestions = Array(questionBank.length).fill(false);
+      timeRemainingSeconds = totalTimeSeconds;
+      localStorage.removeItem('cca_answers');
+      localStorage.removeItem('cca_time_remaining');
+      resultsScreen.classList.add('hidden');
+      startScreen.classList.remove('hidden');
+    }
+
+    window.addEventListener('beforeunload', function (e) {
+      if (document.getElementById('quizScreen').style.display !== 'none' && quizActive) {
+        var message = "You have an active exam. Reloading will reset your current progress!";
+        e.returnValue = message;
+        return message;
+      }
+    });
+  </script>
+</body>
+</html>
